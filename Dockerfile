@@ -1,9 +1,5 @@
 FROM nginx:1.10.1
 
-RUN apt-get update && \
-    apt-get install -y \
-    curl
-
 EXPOSE 80
 
 ADD nginx.conf /etc/nginx/nginx.conf
