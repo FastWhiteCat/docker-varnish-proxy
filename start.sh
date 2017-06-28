@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$LISTEN_PORT" ]; then
-    SERVER_PORT="80"
+    LISTEN_PORT="80"
 fi
 
 if [ -z "$ELB_DNS" ]; then
