@@ -24,6 +24,10 @@ if [ -z "$SITEMAP_BLOG" ]; then
     SITEMAP_BLOG="blog_sitemap.xml"
 fi
 
+if [ -z "$NGINX_KEEPALIVE_TIMEOUT" ]; then
+    NGINX_KEEPALIVE_TIMEOUT="65"
+fi
+
 sed -i 's=__listen_port__='"$LISTEN_PORT"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__elb_dns__='"$ELB_DNS"'=g' /etc/nginx/conf.d/default.conf
 
@@ -33,5 +37,7 @@ sed -i 's=__sitemap_products__='"$SITEMAP_PRODUCTS"'=g' /etc/nginx/conf.d/defaul
 sed -i 's=__sitemap_blog__='"$SITEMAP_BLOG"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__sitemap_url__='"$SITEMAP_URL"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__sitemap_blog_url__='"$SITEMAP_BLOG_URL"'=g' /etc/nginx/conf.d/default.conf
+
+sed -i 's=__nginx_keepalive_timeout__='"$NGINX_KEEPALIVE_TIMEOUT"'=g' /etc/nginx/nginx.conf
 
 nginx -g 'daemon off;'
