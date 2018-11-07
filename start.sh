@@ -32,6 +32,14 @@ if [ -z "$NGINX_WORKER_CONNECTIONS" ]; then
     NGINX_WORKER_CONNECTIONS="1024"
 fi
 
+if [ -z "$RESOLVER_IP" ]; then
+    RESOLVER_IP="8.8.8.8"
+fi
+
+if [ -z "$RESOLVER_TIME" ]; then
+    RESOLVER_TIME="600s"
+fi
+
 sed -i 's=__listen_port__='"$LISTEN_PORT"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__elb_dns__='"$ELB_DNS"'=g' /etc/nginx/conf.d/default.conf
 
@@ -44,5 +52,8 @@ sed -i 's=__sitemap_blog_url__='"$SITEMAP_BLOG_URL"'=g' /etc/nginx/conf.d/defaul
 
 sed -i 's=__nginx_keepalive_timeout__='"$NGINX_KEEPALIVE_TIMEOUT"'=g' /etc/nginx/nginx.conf
 sed -i 's=__nginx_worker_connections__='"$NGINX_WORKER_CONNECTIONS"'=g' /etc/nginx/nginx.conf
+
+sed -i 's=__resolver_ip__='"$RESOLVER_IP"'=g' /etc/nginx/nginx.conf
+sed -i 's=__resolver_time__='"$RESOLVER_TIME"'=g' /etc/nginx/nginx.conf
 
 nginx -g 'daemon off;'
