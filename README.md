@@ -19,7 +19,7 @@ Run with configuration:
 ```bash
 docker run -Pit --name=varnish \
         -e LISTEN_PORT="80" \
-        -e $ELB_DNS="8080" \
+        -e ELB_DNS="http://elb-host:8080" \
         -e NGINX_KEEPALIVE_TIMEOUT="65" \
         -e NGINX_WORKER_CONNECTIONS="1024" \
         -e RESOLVER_IP="8.8.8.8" \

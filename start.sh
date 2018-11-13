@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ -z "$SITEMAP_URL" ]; then
+    SITEMAP_URL="http://localhost/"
+fi
+
+if [ -z "$SITEMAP_BLOG_URL" ]; then
+    SITEMAP_BLOG_URL="http://localhost/"
+fi
+
 if [ -z "$LISTEN_PORT" ]; then
     LISTEN_PORT="80"
 fi
@@ -53,7 +61,7 @@ sed -i 's=__sitemap_blog_url__='"$SITEMAP_BLOG_URL"'=g' /etc/nginx/conf.d/defaul
 sed -i 's=__nginx_keepalive_timeout__='"$NGINX_KEEPALIVE_TIMEOUT"'=g' /etc/nginx/nginx.conf
 sed -i 's=__nginx_worker_connections__='"$NGINX_WORKER_CONNECTIONS"'=g' /etc/nginx/nginx.conf
 
-sed -i 's=__resolver_ip__='"$RESOLVER_IP"'=g' /etc/nginx/default.conf
-sed -i 's=__resolver_time__='"$RESOLVER_TIME"'=g' /etc/nginx/default.conf
+sed -i 's=__resolver_ip__='"$RESOLVER_IP"'=g' /etc/nginx/conf.d/default.conf
+sed -i 's=__resolver_time__='"$RESOLVER_TIME"'=g' /etc/nginx/conf.d/default.conf
 
 nginx -g 'daemon off;'
