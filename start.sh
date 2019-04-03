@@ -48,6 +48,11 @@ if [ -z "$RESOLVER_TIME" ]; then
     RESOLVER_TIME="600s"
 fi
 
+[ -z "$PROXY_BUFFER_SIZE" ]       && export PROXY_BUFFER_SIZE=128k
+[ -z "$PROXY_BUFFERS_NUMBER" ]    && export PROXY_BUFFERS_NUMBER=4
+[ -z "$PROXY_BUFFERS_SIZE" ]      && export PROXY_BUFFERS_SIZE=256k
+[ -z "$PROXY_BUSY_BUFFERS_SIZE" ] && export PROXY_BUSY_BUFFERS_SIZE=256k
+
 sed -i 's=__listen_port__='"$LISTEN_PORT"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__elb_dns__='"$ELB_DNS"'=g' /etc/nginx/conf.d/default.conf
 
@@ -63,5 +68,11 @@ sed -i 's=__nginx_worker_connections__='"$NGINX_WORKER_CONNECTIONS"'=g' /etc/ngi
 
 sed -i 's=__resolver_ip__='"$RESOLVER_IP"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__resolver_time__='"$RESOLVER_TIME"'=g' /etc/nginx/conf.d/default.conf
+
+sed -i 's=__proxy_buffer_size__='"$PROXY_BUFFER_SIZE"'=g' /etc/nginx/conf.d/default.conf
+sed -i 's=__proxy_buffers_number__='"$PROXY_BUFFERS_NUMBER"'=g' /etc/nginx/conf.d/default.conf
+sed -i 's=__proxy_buffers_size__='"$PROXY_BUFFERS_SIZE"'=g' /etc/nginx/conf.d/default.conf
+sed -i 's=__proxy_busy_buffers_size__='"$PROXY_BUSY_BUFFERS_SIZE"'=g' /etc/nginx/conf.d/default.conf
+
 
 nginx -g 'daemon off;'
