@@ -1,57 +1,25 @@
 #!/bin/bash
 
-if [ -z "$SITEMAP_URL" ]; then
-    SITEMAP_URL="http://localhost/"
-fi
+[ -z "$LISTEN_PORT" ] &&  export LISTEN_PORT="80"
+[ -z "$ELB_DNS" ] &&      export ELB_DNS=""
 
-if [ -z "$SITEMAP_BLOG_URL" ]; then
-    SITEMAP_BLOG_URL="http://localhost/"
-fi
+[ -z "$SITEMAP_URL" ] &&       export SITEMAP_URL="http://localhost/"
+[ -z "$SITEMAP_BLOG_URL" ] &&  export SITEMAP_BLOG_URL="http://localhost/"
+[ -z "$SITEMAP_INDEX" ] &&     export SITEMAP_INDEX="sitemap_index.xml"
+[ -z "$SITEMAP_CATEGORY" ] &&  export SITEMAP_CATEGORY="sitemap_category.xml"
+[ -z "$SITEMAP_PRODUCTS" ] &&  export SITEMAP_PRODUCTS="sitemap_products.xml"
+[ -z "$SITEMAP_BLOG" ] &&      export SITEMAP_BLOG="blog_sitemap.xml"
 
-if [ -z "$LISTEN_PORT" ]; then
-    LISTEN_PORT="80"
-fi
+[ -z "$NGINX_KEEPALIVE_TIMEOUT" ] &&  export NGINX_KEEPALIVE_TIMEOUT="65"
+[ -z "$NGINX_WORKER_CONNECTIONS" ] && export NGINX_WORKER_CONNECTIONS="1024"
 
-if [ -z "$ELB_DNS" ]; then
-    ELB_DNS=""
-fi
+[ -z "$RESOLVER_IP" ] &&    export RESOLVER_IP="8.8.8.8"
+[ -z "$RESOLVER_TIME" ] &&  export RESOLVER_TIME="600s"
 
-if [ -z "$SITEMAP_INDEX" ]; then
-    SITEMAP_INDEX="sitemap_index.xml"
-fi
-
-if [ -z "$SITEMAP_CATEGORY" ]; then
-    SITEMAP_CATEGORY="sitemap_category.xml"
-fi
-
-if [ -z "$SITEMAP_PRODUCTS" ]; then
-    SITEMAP_PRODUCTS="sitemap_products.xml"
-fi
-
-if [ -z "$SITEMAP_BLOG" ]; then
-    SITEMAP_BLOG="blog_sitemap.xml"
-fi
-
-if [ -z "$NGINX_KEEPALIVE_TIMEOUT" ]; then
-    NGINX_KEEPALIVE_TIMEOUT="65"
-fi
-
-if [ -z "$NGINX_WORKER_CONNECTIONS" ]; then
-    NGINX_WORKER_CONNECTIONS="1024"
-fi
-
-if [ -z "$RESOLVER_IP" ]; then
-    RESOLVER_IP="8.8.8.8"
-fi
-
-if [ -z "$RESOLVER_TIME" ]; then
-    RESOLVER_TIME="600s"
-fi
-
-[ -z "$PROXY_BUFFER_SIZE" ]       && export PROXY_BUFFER_SIZE=128k
-[ -z "$PROXY_BUFFERS_NUMBER" ]    && export PROXY_BUFFERS_NUMBER=4
-[ -z "$PROXY_BUFFERS_SIZE" ]      && export PROXY_BUFFERS_SIZE=256k
-[ -z "$PROXY_BUSY_BUFFERS_SIZE" ] && export PROXY_BUSY_BUFFERS_SIZE=256k
+[ -z "$PROXY_BUFFER_SIZE" ] &&       export PROXY_BUFFER_SIZE="128k"
+[ -z "$PROXY_BUFFERS_NUMBER" ] &&    export PROXY_BUFFERS_NUMBER="4"
+[ -z "$PROXY_BUFFERS_SIZE" ] &&      export PROXY_BUFFERS_SIZE="256k"
+[ -z "$PROXY_BUSY_BUFFERS_SIZE" ] && export PROXY_BUSY_BUFFERS_SIZE="256k"
 
 sed -i 's=__listen_port__='"$LISTEN_PORT"'=g' /etc/nginx/conf.d/default.conf
 sed -i 's=__elb_dns__='"$ELB_DNS"'=g' /etc/nginx/conf.d/default.conf
