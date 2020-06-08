@@ -5,6 +5,7 @@ EXPOSE 80
 COPY conf.d /etc/nginx/conf.d/
 COPY nginx.conf /etc/nginx/nginx.conf
 CMD mkdir /var/www/html/health
+COPY health_check.php /var/www/html/
 COPY index.html /var/www/html/health/index.html
 
 COPY start.sh /usr/local/bin/
